@@ -4,8 +4,8 @@ import { PostItem } from "@/components/PostItem";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { UserInfo } from "@/components/UserInfo";
-import { useQuery } from "@tanstack/react-query";
-import { Stack } from "expo-router";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { router, Stack } from "expo-router";
 import {
   useLocalSearchParams,
   useRouter,
@@ -14,7 +14,7 @@ import {
 import { Button } from "react-native";
 
 const PostDetail = () => {
-  const router = useRouter();
+  const queryClient = useQueryClient();
   const params = useLocalSearchParams();
   const id = params.id as string | undefined;
 
@@ -33,6 +33,12 @@ const PostDetail = () => {
   } = useQuery<Post, Error>({
     queryKey: ["posts", id],
     queryFn: () => fetchPostById(id),
+    // initialData özelliği ile yeni yükleme yapılana kadar
+    // var olan data seti içindeki post datası kullanılır
+    initialData: () => {
+      const posts = queryClient.getQueryData<Post[]>(["posts"]);
+      return posts?.find((p) => p.id === parseInt(id));
+    },
   });
 
   const {
@@ -42,6 +48,8 @@ const PostDetail = () => {
   } = useQuery<User, Error>({
     queryKey: ["user", post?.userId],
     queryFn: () => fetchUserById(post?.userId),
+    // enabled özelliği sayesinde sadece post.userId değeri dolu olduğunda query gerçekleşir
+    // bu sayede gereksiz querylerin önüne geçilmiş olur
     enabled: !!post?.userId,
   });
 
