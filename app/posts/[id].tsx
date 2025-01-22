@@ -8,8 +8,6 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { router, Stack } from "expo-router";
 import {
   useLocalSearchParams,
-  useRouter,
-  useSearchParams,
 } from "expo-router/build/hooks";
 import { Button } from "react-native";
 

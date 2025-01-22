@@ -37,11 +37,11 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="json-formatter"
         options={{
-          title: "Explore",
+          title: "Formatter",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="paperplane.fill" color={color} />
+            <IconSymbol size={28} name="paintbrush.fill" color={color} />
           ),
         }}
       />
