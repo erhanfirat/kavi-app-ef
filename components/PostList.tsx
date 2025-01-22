@@ -25,9 +25,7 @@ export const PostList: React.FC = () => {
     <ThemedView style={styles.listContainer}>
       <FlashList
         data={data}
-        renderItem={({ item }) => (
-          <PostItem post={item} />
-        )}
+        renderItem={({ item }) => <PostItem post={item} />}
         keyExtractor={(item) => item.id.toString()}
         estimatedItemSize={50}
       ></FlashList>
@@ -46,5 +44,6 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     gap: 16,
+    padding: 16,
   },
 });
