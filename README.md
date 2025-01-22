@@ -1,6 +1,15 @@
-# Welcome to your Expo app 👋
+# Welcome to my sample Expo app 👋
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+
+## Key Features
+
+- Expo Routing and tabs structure used for navigation solution
+- `TanStack Queries` used for server state management in order to handle caching, auto data updates, and performant boost
+- `@shopify/flash-list` used for performant lists
+- Light / Dark theme supported
+- `IconButton` component created to support button with icon
+- `Array.map` & `Array.reduce` methods used to proccess raw json data
 
 ## Get started
 
