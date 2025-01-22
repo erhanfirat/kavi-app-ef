@@ -4,7 +4,7 @@ import { IconSymbol } from "./ui/IconSymbol";
 type IconButtonProps = {
   title?: string;
   icon?: import("expo-symbols").SymbolViewProps["name"];
-  onPress: () => {};
+  onPress: () => void;
 };
 
 const IconButton: React.FC<IconButtonProps> = ({ icon, title, onPress }) => {
