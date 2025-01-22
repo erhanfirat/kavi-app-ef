@@ -3,6 +3,7 @@ import { Post, User } from "@/api/types";
 import { PostItem } from "@/components/PostItem";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+import { UserInfo } from "@/components/UserInfo";
 import { useQuery } from "@tanstack/react-query";
 import { Stack } from "expo-router";
 import {
@@ -50,11 +51,14 @@ const PostDetail = () => {
         <Stack.Screen
           options={{
             headerTitle: `Post Detail of #${id}`,
-            headerBackTitle: `Geri`,
+            headerBackTitle: `Back`,
           }}
         ></Stack.Screen>
         <ThemedText>Yükleniyor</ThemedText>
-        <Button title="Post List" onPress={() => router.push("/")}></Button>
+        <Button
+          title="Post List"
+          onPress={() => router.push("/posts")}
+        ></Button>
       </ThemedView>
     );
   }
@@ -64,11 +68,11 @@ const PostDetail = () => {
       <Stack.Screen
         options={{
           headerTitle: `Post Detail of #${id}`,
-          headerBackTitle: `Geri`,
+          headerBackTitle: `Back`,
         }}
       ></Stack.Screen>
       <PostItem post={post} showDetailBtn={false} />
-      <ThemedText>User: {user?.name}</ThemedText>
+      {user && <UserInfo user={user} />}
       <Button title="Post List" onPress={() => router.push("/posts")}></Button>
     </ThemedView>
   );

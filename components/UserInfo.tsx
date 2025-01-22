@@ -1,17 +1,16 @@
-import { Post } from "@/api/types";
+import { Post, User } from "@/api/types";
 import { ThemedText } from "./ThemedText";
 import { ThemedView } from "./ThemedView";
 import { StyleSheet } from "react-native";
 import { Link } from "expo-router";
 
-type PostItemProps = { post: Post; showDetailBtn?: boolean };
+type UserInfoProps = { user: User };
 
-export const PostItem = ({ post, showDetailBtn = true }: PostItemProps) => {
+export const UserInfo = ({ user }: UserInfoProps) => {
   return (
     <ThemedView style={styles.postContainer}>
-      <ThemedText type="subtitle">{post.title}</ThemedText>
-      <ThemedText>{post.body}</ThemedText>
-      {showDetailBtn && <Link href={`/posts/${post.id}`}>Detail</Link>}
+      <ThemedText type="subtitle">{user.name}</ThemedText>
+      <ThemedText>{user.email}</ThemedText>
     </ThemedView>
   );
 };
