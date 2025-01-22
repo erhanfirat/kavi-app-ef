@@ -1,16 +1,19 @@
-import { Image, StyleSheet, ScrollView } from "react-native";
+import { StyleSheet, ScrollView, SafeAreaView } from "react-native";
 
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+import { PostList } from "@/components/PostList";
 
 export default function HomeScreen() {
   return (
-    <ScrollView>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Posts</ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}></ThemedView>
-    </ScrollView>
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <ThemedView style={styles.titleContainer}>
+          <ThemedText type="title">Posts</ThemedText>
+        </ThemedView>
+        <PostList />
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -24,11 +27,11 @@ const styles = StyleSheet.create({
     gap: 8,
     marginBottom: 8,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: "absolute",
+  container: {
+    flex: 1,
+    paddingTop: 20,
+  },
+  scrollView: {
+    marginHorizontal: 20,
   },
 });
