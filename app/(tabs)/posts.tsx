@@ -2,6 +2,7 @@ import { StyleSheet, ScrollView, SafeAreaView } from "react-native";
 
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+import { Link } from "expo-router";
 import { PostList } from "@/components/PostList";
 
 export default function HomeScreen() {
@@ -9,7 +10,7 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <ThemedView style={styles.titleContainer}>
-          <ThemedText type="title">Posts</ThemedText>
+          <ThemedText type="title">KaviApp</ThemedText>
         </ThemedView>
         <PostList />
       </ScrollView>
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingTop: 20,
+    padding: 8,
   },
   scrollView: {
     marginHorizontal: 20,
