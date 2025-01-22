@@ -6,10 +6,12 @@ import { Link } from "expo-router";
 
 type UserInfoProps = { user: User };
 
-export const UserInfo = ({ user }: UserInfoProps) => {
+export const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
   return (
     <ThemedView style={styles.postContainer}>
-      <ThemedText type="subtitle">{user.name}</ThemedText>
+      <ThemedText type="subtitle">User Info:</ThemedText>
+      <ThemedText>{user.username}</ThemedText>
+      <ThemedText>{user.name}</ThemedText>
       <ThemedText>{user.email}</ThemedText>
     </ThemedView>
   );
@@ -20,8 +22,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "flex-start",
     gap: 8,
-    borderRadius: 8,
-    borderWidth: 1,
     padding: 8,
   },
 });
