@@ -4,14 +4,16 @@ import { ThemedView } from "./ThemedView";
 import { StyleSheet } from "react-native";
 import { Link } from "expo-router";
 
-export const PostItem = ({ post }: { post: Post }) => {
+type PostItemProps = { post: Post; showDetailBtn?: boolean };
+
+export const PostItem = ({ post, showDetailBtn = true }: PostItemProps) => {
   return (
     <ThemedView style={styles.postContainer}>
       <ThemedText type="subtitle" style={styles.postTitle}>
         {post.title}
       </ThemedText>
       <ThemedText>{post.body}</ThemedText>
-      <Link href={`/posts/${post.id}`}>Detay</Link>
+      {showDetailBtn && <Link href={`/posts/${post.id}`}>Detay</Link>}
     </ThemedView>
   );
 };
