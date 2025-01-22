@@ -1,4 +1,4 @@
-import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet, Text } from "react-native";
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 
@@ -25,9 +25,9 @@ export default function TabTwoScreen() {
             Power Average: {averagePower}
           </ThemedText>
           <ThemedText style={styles.average}>Formatted Data</ThemedText>
-          <ThemedText style={styles.json}>
+          <Text style={styles.json}>
             {JSON.stringify(updatedData, null, 2)}
-          </ThemedText>
+          </Text>
         </ThemedView>
       </ScrollView>
     </SafeAreaView>
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
 
 interface UserRaw {
   first_name: string;
-  last_name: string;
+  last_name?: string;
   username: string;
   power: string;
   gender: string;
