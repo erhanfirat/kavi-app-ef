@@ -8,7 +8,6 @@ import { PostList } from "@/components/PostList";
 export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
-      <Link href={`/posts/2`}>Detay 2</Link>
       <ScrollView>
         <ThemedView style={styles.titleContainer}>
           <ThemedText type="title">KaviApp</ThemedText>
