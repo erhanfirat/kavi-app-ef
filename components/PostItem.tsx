@@ -11,7 +11,7 @@ export const PostItem = ({ post }: { post: Post }) => {
         {post.title}
       </ThemedText>
       <ThemedText>{post.body}</ThemedText>
-      <Link href={`/posts/${post.id}`}>Detail</Link>
+      <Link href={`/posts/${post.id}`}>Detay</Link>
     </ThemedView>
   );
 };
