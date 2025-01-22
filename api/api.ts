@@ -18,7 +18,7 @@ export const fetchPosts = async (): Promise<Post[]> => {
  * @param postId
  * @returns {Post} Post information
  */
-export const fetchPostById = async (postId: number): Promise<Post> => {
+export const fetchPostById = async (postId: string): Promise<Post> => {
   const res = await fetch(
     `https://jsonplaceholder.typicode.com/posts/${postId}`
   );
@@ -34,12 +34,17 @@ export const fetchPostById = async (postId: number): Promise<Post> => {
  * @param userId
  * @returns {User} User information
  */
-export const fetchUserById = async (userId: number): Promise<User> => {
+export const fetchUserById = async (
+  userId: number | undefined
+): Promise<User> => {
+  if (!userId) {
+    throw new Error("User Id bilgisi eksik.");
+  }
   const res = await fetch(
     `https://jsonplaceholder.typicode.com/users/${userId}`
   );
   if (!res.ok) {
-    throw new Error("Veri çekme hatası");
+    throw new Error("Veri çekme hatası.");
   }
 
   return res.json();
