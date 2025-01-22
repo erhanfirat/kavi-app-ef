@@ -1,109 +1,153 @@
-import { StyleSheet, Image, Platform } from 'react-native';
-
-import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { IconSymbol } from '@/components/ui/IconSymbol';
+import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
+import { ThemedView } from "@/components/ThemedView";
+import { ThemedText } from "@/components/ThemedText";
 
 export default function TabTwoScreen() {
+  const updatedData: User[] = data.map((user: UserRaw) => {
+    const [day, month, year] = user.birth_date.split(".");
+
+    return {
+      fullName: `${user.first_name} ${user.last_name}`,
+      username: user.username,
+      power: parseInt(user.power),
+      birthDate: new Date(`${year}-${month}-${day}`),
+    };
+  });
+
+  const averagePower =
+    updatedData.reduce((sum, user) => sum + user.power, 0) / data.length;
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Explore</ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image source={require('@/assets/images/react-logo.png')} style={{ alignSelf: 'center' }} />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Custom fonts">
-        <ThemedText>
-          Open <ThemedText type="defaultSemiBold">app/_layout.tsx</ThemedText> to see how to load{' '}
-          <ThemedText style={{ fontFamily: 'SpaceMono' }}>
-            custom fonts such as this one.
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <ThemedView>
+          <ThemedText style={styles.average}>
+            Power Average: {averagePower}
           </ThemedText>
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/versions/latest/sdk/font">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user's current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful <ThemedText type="defaultSemiBold">react-native-reanimated</ThemedText>{' '}
-          library to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
+          <ThemedText style={styles.average}>Formatted Data</ThemedText>
+          <ThemedText style={styles.json}>
+            {JSON.stringify(updatedData, null, 2)}
+          </ThemedText>
+        </ThemedView>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
+  container: {
+    flex: 1,
+    padding: 8,
+  },
+  average: {
+    fontWeight: "bold",
+    fontSize: 18,
+    marginBottom: 16,
   },
   titleContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 8,
   },
+  json: {
+    fontSize: 14,
+    fontFamily: "Courier",
+    backgroundColor: "#f0f0f0",
+    padding: 10,
+    borderRadius: 5,
+  },
 });
+
+interface UserRaw {
+  first_name: string;
+  last_name: string;
+  username: string;
+  power: string;
+  gender: string;
+  birth_date: string;
+}
+interface User {
+  fullName: string;
+  username: string;
+  power: number;
+  birthDate: Date;
+}
+
+const data: UserRaw[] = [
+  {
+    first_name: "Stepha",
+    last_name: "Quiddinton",
+    username: "squiddinton0",
+    power: "481",
+    gender: "Female",
+    birth_date: "07.10.1996",
+  },
+  {
+    first_name: "Niki",
+    last_name: "Benedick",
+    username: "nbenedick1",
+    power: "578",
+    gender: "Female",
+    birth_date: "24.09.1996",
+  },
+  {
+    first_name: "Kenneth",
+    username: "kbeavers2",
+    power: "463",
+    gender: "Male",
+    birth_date: "18.10.1990",
+  },
+  {
+    first_name: "Nissy",
+    last_name: "Juggins",
+    username: "njuggins3",
+    power: "436",
+    gender: "Female",
+    birth_date: "09.01.2000",
+  },
+  {
+    first_name: "Jaymee",
+    last_name: "Dotterill",
+    username: "jdotterill4",
+    power: "687",
+    gender: "Female",
+    birth_date: "13.02.2000",
+  },
+  {
+    first_name: "Shell",
+    last_name: "Shawe",
+    username: "sshawe5",
+    power: "631",
+    gender: "Female",
+    birth_date: "08.06.1999",
+  },
+  {
+    first_name: "Ham",
+    username: "hruslinge6",
+    power: "659",
+    gender: "Male",
+    birth_date: "01.03.1991",
+  },
+  {
+    first_name: "Gabriell",
+    last_name: "Lukins",
+    username: "glukins7",
+    power: "500",
+    gender: "Female",
+    birth_date: "25.11.1998",
+  },
+  {
+    first_name: "Roddy",
+    last_name: "Whates",
+    username: "rwhates8",
+    power: "609",
+    gender: "Male",
+    birth_date: "06.03.1993",
+  },
+  {
+    first_name: "Iris",
+    username: "ibolens9",
+    power: "418",
+    gender: "Female",
+    birth_date: "13.04.1993",
+  },
+];
