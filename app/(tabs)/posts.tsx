@@ -10,7 +10,7 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <ThemedView style={styles.titleContainer}>
-          <ThemedText type="title">KaviApp</ThemedText>
+          <ThemedText type="title">Kavi Posts</ThemedText>
         </ThemedView>
         <PostList />
       </ScrollView>
